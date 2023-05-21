@@ -5,7 +5,7 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
 export const App = () => {
-  
+
   const [contacts, setContacts]=useState([]);
   const [filterPhonebook, setFilterPhonebook]=useState('');
 
@@ -22,6 +22,7 @@ export const App = () => {
       name: data.name,
       number: data.number,
     };
+    // useEffect(()=>{[contact, ...prevState.contacts]}, [contacts])
     this.setState(prevState => ({
       contacts: [contact, ...prevState.contacts],
     }));
@@ -34,8 +35,8 @@ export const App = () => {
   };
 
   const changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
-    console.log(this.state.filter);
+    setFilterPhonebook(e.currentTarget.value);
+    console.log(filterPhonebook);
   };
 
   const componentDidMount = () => {
@@ -46,25 +47,25 @@ export const App = () => {
   }
   const componentDidUpdate = (prevProps, prevState) => {
     if(this.state.contacts !== prevState.contacts){
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem('contacts', JSON.stringify(contacts));
     }
   }
 
 
-    const { filter } = this.state;
-    const normalizedFilter = this.state.filter.toLowerCase();
-    const filtred = this.state.contacts.filter(contact =>
+    
+    const normalizedFilter = filterPhonebook.toLowerCase();
+    const filtred = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
     return (
       <div className="wrap">
         <div>
           <h1>Phonebook</h1>
-          <ContactForm onSubmit={this.formSubmitHandler} />
+          <ContactForm onSubmit={formSubmitHandler} />
 
           <h2>Contacts</h2>
-          <Filter onChange={this.changeFilter} filter={filter} />
-          <ContactList contacts={filtred} deleteContact={this.deleteContact} />
+          <Filter onChange={changeFilter} filter={filterPhonebook} />
+          <ContactList contacts={filtred} deleteContact={deleteContact} />
         </div>
       </div>
     );
