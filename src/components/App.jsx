@@ -10,19 +10,19 @@ export const App = () => {
   });
   const [filterPhonebook, setFilterPhonebook] = useState('');
 
-  const formSubmitHandler = data => {
+  const formSubmitHandler = ({name, number}) => {
     const inContacts = contacts.find(
-      contact => contact.name.toLowerCase() === data.name.toLowerCase()
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
-    let message = `${data.name} is already in contacts`;
+    let message = `${name} is already in contacts`;
     if (inContacts) {
       return alert(message);
     }
     const contact = {
       id: nanoid(),
-      name: data.name,
-      number: data.number,
+      name,
+      number,
     };
     setContacts([contact, ...contacts]);
   };
@@ -42,14 +42,15 @@ export const App = () => {
   }, [contacts]);
 
   const normalizedFilter = filterPhonebook.toLowerCase();
+ 
   const filtred = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter)
+      contact.name.toLowerCase().includes(normalizedFilter)
   );
   return (
     <div className="wrap">
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={formSubmitHandler} />
+        <ContactForm onSubmitForm={formSubmitHandler} />
 
         <h2>Contacts</h2>
         <Filter onChange={changeFilter} filter={filterPhonebook} />
@@ -58,6 +59,8 @@ export const App = () => {
     </div>
   );
 };
+
+
 
 // export class App extends Component {
 //   state = {

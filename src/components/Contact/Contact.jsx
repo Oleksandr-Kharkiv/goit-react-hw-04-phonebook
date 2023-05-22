@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import { ContactComponent, ContactTel, DelContactBtn, ContactName } from './Contacts.styled';
+import {
+  ContactComponent,
+  ContactTel,
+  DelContactBtn,
+  ContactName,
+} from './Contacts.styled';
 
 export const Contact = ({ id, name, number, deleteContact }) => {
   return (
     <ContactComponent key={id}>
       <ContactName>
-        {name}:{' '}
-        <ContactTel href="tel:({number})" >
-          {number}
-        </ContactTel>
+        {name}: <ContactTel href="tel:({number})">{number}</ContactTel>
       </ContactName>
-      <DelContactBtn onClick={() => deleteContact(id)}>
-        Delete
-      </DelContactBtn>
+      <DelContactBtn onClick={() => deleteContact(id)}>Delete</DelContactBtn>
     </ContactComponent>
   );
 };
@@ -23,6 +23,7 @@ Contact.propTypes = {
   number: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };
+
 
 
 // ========================== варіант css-модулі ==================

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Contact } from '../Contact/Contact';
-import {ContactListComponent} from './ContactList.styled';
+import { ContactListComponent } from './ContactList.styled';
 
 export const ContactList = ({ contacts, deleteContact }) => {
   return (
@@ -28,6 +28,7 @@ ContactList.propTypes = {
   ),
   deleteContact: PropTypes.func.isRequired,
 };
+
 
 
 // ========================== варіант css-модулі ==================
